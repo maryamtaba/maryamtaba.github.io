@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Circles</title>
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+    <script>
+      // This example creates circles on the map, representing populations in North
+      // America.
+
+      // First, create an object containing LatLng and population for each city.
+	var citymap = [
+
+        { lat : 37.329732000000412,
+   lng : -121.90178199998721,
+   population : 4035.0,
+   station_id : 2.0},
+ { lat : 37.330698000000176,
+   lng : -121.88897900000124,
+   population : 543.0,
+   station_id : 3.0},
+ { lat : 37.333987999999025,
+   lng : -121.894902,
+   population : 1447.0,
+   station_id : 4.0},
+ { lat : 37.331415000000369,
+   lng : -121.89320000000123,
+   population : 789.0,
+   station_id : 5.0},
+ { lat : 37.336720999999706,
+   lng : -121.89407400000026,
+   population : 1215.0,
+   station_id : 6.0},
+ { lat : 37.333797999999717,
+   lng : -121.88694300000122,
+   population : 833.0,
+   station_id : 7.0},
+ { lat : 37.330164999999695,
+   lng : -121.88583099999965,
+   population : 540.0,
+   station_id : 8.0},
+ { lat : 37.348741999999397,
+   lng : -121.89471500000138,
+   population : 945.0,
+   station_id : 9.0},
+ { lat : 37.337390999999776,
+   lng : -121.88699500000064,
+   population : 518.0,
+   station_id : 10.0},
+ { lat : 37.335885000000339,
+   lng : -121.88565999999994,
+   population : 630.0,
+   station_id : 11.0},
+ { lat : 37.332807999999744,
+   lng : -121.88389099999982,
+   population : 363.0,
+   station_id : 12.0},
+ { lat : 37.339300999999985,
+   lng : -121.88993699999993,
+   population : 694.0,
+   station_id : 13.0},
+ { lat : 37.332691999999959,
+   lng : -121.90008400000056,
+   population : 547.0,
+   station_id : 14.0},
+ { lat : 37.333954999999889,
+   lng : -121.87734900000059,
+   population : 481.0,
+   station_id : 16.0},
+ { lat : 37.389217999999055,
+   lng : -122.08189600000014,
+   population : 1291.0,
+   station_id : 27.0},
+ { lat : 37.394358000000913,
+   lng : -122.07671299999782,
+   population : 2515.0,
+   station_id : 28.0},
+ { lat : 37.406940000000446,
+   lng : -122.10675800000043,
+   population : 611.0,
+   station_id : 29.0},
+ { lat : 37.395336999999948,
+   lng : -122.05247600000033,
+   population : 137.0,
+   station_id : 30.0},
+ { lat : 37.400442999999974,
+   lng : -122.10833799999892,
+   population : 559.0,
+   station_id : 31.0},
+ { lat : 37.385955999999041,
+   lng : -122.08367799999849,
+   population : 1014.0,
+   station_id : 32.0},
+ { lat : 37.420909000000272,
+   lng : -122.08062300000103,
+   population : 385.0,
+   station_id : 33.0},
+ { lat : 37.443987999999592,
+   lng : -122.16475900000331,
+   population : 1170.0,
+   station_id : 34.0},
+ { lat : 37.444520999999945,
+   lng : -122.16309300000097,
+   population : 490.0,
+   station_id : 35.0},
+ { lat : 37.429082000000172,
+   lng : -122.14280500000076,
+   population : 392.0,
+   station_id : 36.0},
+ { lat : 37.448597999999798,
+   lng : -122.15950399999943,
+   population : 788.0,
+   station_id : 37.0},
+ { lat : 37.425683900000159,
+   lng : -122.13777750000006,
+   population : 276.0,
+   station_id : 38.0},
+ { lat : 37.783870999997909,
+   lng : -122.40843299998375,
+   population : 6826.0,
+   station_id : 39.0},
+ { lat : 37.795001000000177,
+   lng : -122.39997000001341,
+   population : 4357.0,
+   station_id : 41.0},
+ { lat : 37.797279999998977,
+   lng : -122.39843599999138,
+   population : 5240.0,
+   station_id : 42.0},
+ { lat : 37.794231000004594,
+   lng : -122.40292299999803,
+   population : 4969.0,
+   station_id : 45.0},
+ { lat : 37.795425000000549,
+   lng : -122.40476699999999,
+   population : 2844.0,
+   station_id : 46.0},
+ { lat : 37.788975000002424,
+   lng : -122.40345199999871,
+   population : 4348.0,
+   station_id : 47.0},
+ { lat : 37.799953000000635,
+   lng : -122.39852500000767,
+   population : 4710.0,
+   station_id : 48.0},
+ { lat : 37.790302000000999,
+   lng : -122.39063699998657,
+   population : 5113.0,
+   station_id : 49.0},
+ { lat : 37.795392,
+   lng : -122.3942030000034,
+   population : 16128.0,
+   station_id : 50.0},
+ { lat : 37.791464000004055,
+   lng : -122.39103399997907,
+   population : 7820.0,
+   station_id : 51.0},
+ { lat : 37.787152000003175,
+   lng : -122.38801300001178,
+   population : 7714.0,
+   station_id : 54.0},
+ { lat : 37.789755999995364,
+   lng : -122.3946430000226,
+   population : 13111.0,
+   station_id : 55.0},
+ { lat : 37.792251000004583,
+   lng : -122.39708599998539,
+   population : 7373.0,
+   station_id : 56.0},
+ { lat : 37.781752000002434,
+   lng : -122.40512699999252,
+   population : 5436.0,
+   station_id : 57.0},
+ { lat : 37.778649999998663,
+   lng : -122.41823499999579,
+   population : 2195.0,
+   station_id : 58.0},
+ { lat : 37.781331999998848,
+   lng : -122.41860299999834,
+   population : 3309.0,
+   station_id : 59.0},
+ { lat : 37.804769999991485,
+   lng : -122.40323400002461,
+   population : 13424.0,
+   station_id : 60.0},
+ { lat : 37.780526000004997,
+   lng : -122.39028799999528,
+   population : 14099.0,
+   station_id : 61.0},
+ { lat : 37.785299000002603,
+   lng : -122.39623600000048,
+   population : 7464.0,
+   station_id : 62.0},
+ { lat : 37.786977999997063,
+   lng : -122.39810800001977,
+   population : 7583.0,
+   station_id : 63.0},
+ { lat : 37.78225899999962,
+   lng : -122.39273800001644,
+   population : 7722.0,
+   station_id : 64.0},
+ { lat : 37.771057999997531,
+   lng : -122.4027170000182,
+   population : 11170.0,
+   station_id : 65.0},
+ { lat : 37.774814000002209,
+   lng : -122.4189539999941,
+   population : 5398.0,
+   station_id : 66.0},
+ { lat : 37.776619000006356,
+   lng : -122.41738500001702,
+   population : 9937.0,
+   station_id : 67.0},
+ { lat : 37.784878000002415,
+   lng : -122.40101400000249,
+   population : 3460.0,
+   station_id : 68.0},
+ { lat : 37.776599999989749,
+   lng : -122.39547000000663,
+   population : 22358.0,
+   station_id : 69.0},
+ { lat : 37.776616999996307,
+   lng : -122.3952600000068,
+   population : 23591.0,
+   station_id : 70.0},
+ { lat : 37.788445999999958,
+   lng : -122.40849900000865,
+   population : 4488.0,
+   station_id : 71.0},
+ { lat : 37.781038999996433,
+   lng : -122.41174800000134,
+   population : 5043.0,
+   station_id : 72.0},
+ { lat : 37.797900000003516,
+   lng : -122.40594199999011,
+   population : 6735.0,
+   station_id : 73.0},
+ { lat : 37.794139000004343,
+   lng : -122.39443399996918,
+   population : 13693.0,
+   station_id : 74.0},
+ { lat : 37.791300000003226,
+   lng : -122.39905100000654,
+   population : 5613.0,
+   station_id : 75.0},
+ { lat : 37.786304999995259,
+   lng : -122.40496600000176,
+   population : 7337.0,
+   station_id : 76.0},
+ { lat : 37.789624999993272,
+   lng : -122.40081100002294,
+   population : 10970.0,
+   station_id : 77.0},
+ { lat : 37.352601000000142,
+   lng : -121.90573299999963,
+   population : 420.0,
+   station_id : 80.0},
+ { lat : 37.79854099999703,
+   lng : -122.4008619999929,
+   population : 5695.0,
+   station_id : 82.0},
+ { lat : 37.342724999999469,
+   lng : -121.89561700000111,
+   population : 879.0,
+   station_id : 84.0},
+ { lat : 37.331956999999996,
+   lng : -121.88163,
+   population : 20.0,
+   station_id : 88.0},
+ { lat : 37.332398000000005,
+   lng : -121.89042899999984,
+   population : 84.0,
+   station_id : 89.0},
+ { lat : 37.780147999999897,
+   lng : -122.40315799999993,
+   population : 173.0,
+   station_id : 90.0},
+ { lat : 37.785907999999978,
+   lng : -122.408891,
+   population : 69.0,
+   station_id : 91.0}
+         
+      ];
+      
+      
+       var predictmap = [
+
+    { lat : 37.7778643,
+   lng : -122.4086628,
+   population : 12000,
+   station_id : 101},
+ { lat : 37.7650608,
+   lng : -122.421892,
+   population : 6500,
+   station_id : 102},
+ { lat : 37.7669049,
+   lng : -122.4128249,
+   population : 1365,
+   station_id : 103},
+   
+  /* { lat : 37.795392,
+   lng : -122.394203,
+   population : 14031,
+   station_id : 104},*/
+ 
+      ];
+      
+      function initMap() {
+        // Create the map.
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 12,
+          center: {lat: 37.771058, lng: -122.402717},
+          mapTypeId: 'terrain'
+        });
+
+        // Construct the circle for each value in citymap.
+        // Note: We scale the area of the circle based on the population.
+        var count = 0;
+        var cityCircles = [];
+        for (var city in citymap) {
+          // Add the circle for this city to the map.
+          cityCircles[count] = new google.maps.Circle({
+            strokeColor: '#FF0000',
+            strokeOpacity: 0.8,
+            strokeWeight: 2,
+            fillColor: '#FF0000',
+            fillOpacity: 0.35,
+            map: map,
+            center: {lat: citymap[city].lat, lng: citymap[city].lng },
+            radius: Math.sqrt(citymap[city].population) * 3
+            //radius: count * 10
+          });
+          count = count + 1;
+        }
+        
+        
+        var predictCircles = [];
+        for (var city in predictmap) {
+          // Add the circle for this city to the map.
+          predictCircles[count] = new google.maps.Circle({
+            strokeColor: '#0000FF',
+            strokeOpacity: 0.8,
+            strokeWeight: 2,
+            fillColor: '#0000FF',
+            fillOpacity: 0.35,
+            map: map,
+            center: {lat: predictmap[city].lat, lng: predictmap[city].lng },
+            radius: Math.sqrt(predictmap[city].population) * 3
+            //radius: count * 10
+          });
+          count = count + 1;
+        }
+        
+      }
+      
+       </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAVxBgvi0OcoGDMAOIMOL8Xpg6twEQoJmg&callback=initMap">
+    </script>
+  </body>
+</html>
